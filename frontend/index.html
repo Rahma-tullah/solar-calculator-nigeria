@@ -1,0 +1,397 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Solar Calculator - Nigeria</title>
+    <link rel="stylesheet" href="css/style.css" />
+  </head>
+  <body>
+    <!-- Hero Section -->
+    <header>
+      <div class="header-container">
+        <div class="header-content">
+          <h1>☀️ Solar Calculator</h1>
+          <p>
+            Discover your solar potential and connect with trusted installers
+            across Nigeria
+          </p>
+        </div>
+        <div class="header-auth">
+          <div id="authButtons">
+            <button onclick="openModal('loginModal')" class="auth-btn">
+              Login
+            </button>
+            <button
+              onclick="openModal('signupModal')"
+              class="auth-btn signup-btn">
+              Sign Up
+            </button>
+          </div>
+          <div id="userMenu" style="display: none">
+            <span id="userName"></span>
+            <button onclick="logout()" class="auth-btn">Logout</button>
+          </div>
+        </div>
+      </div>
+    </header>
+    <div class="container">
+      <!-- Navigation Tabs -->
+      <div class="tabs">
+        <button class="tab active" onclick="switchTab('calculator', this)">
+          Calculator
+        </button>
+        <button class="tab" onclick="switchTab('installers', this)">
+          Find Installers
+        </button>
+        <button
+          class="tab"
+          id="myCalculationsTab"
+          style="display: none"
+          onclick="switchTab('myCalculations', this)">
+          My Calculations
+        </button>
+      </div>
+
+      <!-- Calculator Tab -->
+      <div id="calculator" class="tab-content active">
+        <h2>Solar Energy Calculator</h2>
+        <form id="calculatorForm">
+          <div class="grid-2">
+            <div class="form-group">
+              <label>State *</label>
+              <select id="state" required>
+                <option value="">Select State</option>
+                <option value="Abia">Abia</option>
+                <option value="Adamawa">Adamawa</option>
+                <option value="Akwa Ibom">Akwa Ibom</option>
+                <option value="Anambra">Anambra</option>
+                <option value="Bauchi">Bauchi</option>
+                <option value="Bayelsa">Bayelsa</option>
+                <option value="Benue">Benue</option>
+                <option value="Borno">Borno</option>
+                <option value="Cross River">Cross River</option>
+                <option value="Delta">Delta</option>
+                <option value="Ebonyi">Ebonyi</option>
+                <option value="Edo">Edo</option>
+                <option value="Ekiti">Ekiti</option>
+                <option value="Enugu">Enugu</option>
+                <option value="FCT">FCT Abuja</option>
+                <option value="Gombe">Gombe</option>
+                <option value="Imo">Imo</option>
+                <option value="Jigawa">Jigawa</option>
+                <option value="Kaduna">Kaduna</option>
+                <option value="Kano">Kano</option>
+                <option value="Katsina">Katsina</option>
+                <option value="Kebbi">Kebbi</option>
+                <option value="Kogi">Kogi</option>
+                <option value="Kwara">Kwara</option>
+                <option value="Lagos">Lagos</option>
+                <option value="Nasarawa">Nasarawa</option>
+                <option value="Niger">Niger</option>
+                <option value="Ogun">Ogun</option>
+                <option value="Ondo">Ondo</option>
+                <option value="Osun">Osun</option>
+                <option value="Oyo">Oyo</option>
+                <option value="Plateau">Plateau</option>
+                <option value="Rivers">Rivers</option>
+                <option value="Sokoto">Sokoto</option>
+                <option value="Taraba">Taraba</option>
+                <option value="Yobe">Yobe</option>
+                <option value="Zamfara">Zamfara</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label>City *</label>
+              <input type="text" id="city" required placeholder="e.g., Ikeja" />
+            </div>
+          </div>
+
+          <div class="grid-2">
+            <div class="form-group">
+              <label>Monthly NEPA Bill (₦) *</label>
+              <input
+                type="number"
+                id="nepa_bill"
+                required
+                placeholder="e.g., 25000" />
+            </div>
+            <div class="form-group">
+              <label>Monthly Fuel Cost (₦) *</label>
+              <input
+                type="number"
+                id="fuel_cost"
+                required
+                placeholder="e.g., 30000" />
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label>Equipment List *</label>
+            <textarea
+              id="equipment_list"
+              rows="3"
+              required
+              placeholder="e.g., 2 ACs, 1 fridge, 5 fans, TV, lights"></textarea>
+            <small style="color: #666"
+              >List all the equipment you want to power</small
+            >
+          </div>
+
+          <div class="grid-2">
+            <div class="form-group">
+              <label>System Type *</label>
+              <select id="system_type" required>
+                <option value="">Select Type</option>
+                <option value="hybrid">Hybrid (Solar + Grid Backup)</option>
+                <option value="full_solar">Full Solar (Off-Grid)</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label>Budget (₦) *</label>
+              <input
+                type="number"
+                id="budget"
+                required
+                placeholder="e.g., 2000000" />
+            </div>
+          </div>
+
+          <div class="grid-2">
+            <div class="form-group">
+              <label>Payment Preference *</label>
+              <select id="payment_preference" required>
+                <option value="">Select Payment Option</option>
+                <option value="full">Full Payment</option>
+                <option value="installment">Installment</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label>Do you have space for solar panels? *</label>
+              <select id="has_space" required>
+                <option value="">Select</option>
+                <option value="true">Yes</option>
+                <option value="false">No</option>
+              </select>
+            </div>
+          </div>
+
+          <button type="submit" id="calculateBtn">Calculate</button>
+        </form>
+
+        <div id="calculatorResults" class="results"></div>
+      </div>
+
+      <!-- Installers Tab -->
+      <div id="installers" class="tab-content">
+        <h2>Find Solar Installers</h2>
+
+        <div class="filter-section">
+          <label>Filter by State:</label>
+          <select id="filterState" onchange="loadInstallers()">
+            <option value="">All States</option>
+            <option value="Lagos">Lagos</option>
+            <option value="Kano">Kano</option>
+            <option value="Rivers">Rivers</option>
+            <option value="Kaduna">Kaduna</option>
+            <option value="Abuja">FCT Abuja</option>
+          </select>
+        </div>
+
+        <div id="installersList"></div>
+        <!-- My Calculations Tab -->
+      </div>
+      <div id="myCalculations" class="tab-content">
+        <h2>My Past Calculations</h2>
+        <div id="calculationsList"></div>
+      </div>
+    </div>
+
+    <!-- Chatbot Widget -->
+    <div class="chatbot-widget">
+      <button class="chat-button" onclick="toggleChat()">💬</button>
+      <div id="chatWindow" class="chat-window">
+        <div class="chat-header">Solar Assistant</div>
+        <div id="chatMessages" class="chat-messages"></div>
+        <div class="chat-input-area">
+          <input
+            type="text"
+            id="chatInput"
+            placeholder="Ask me anything..."
+            onkeypress="handleChatKeypress(event)" />
+          <button onclick="sendChatMessage()">Send</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Login Modal -->
+    <div id="loginModal" class="modal">
+      <div class="modal-content">
+        <span class="close" onclick="closeModal('loginModal')">&times;</span>
+        <h2>Login to Your Account</h2>
+        <form id="loginForm">
+          <div class="form-group">
+            <label>Email</label>
+            <input
+              type="email"
+              id="loginEmail"
+              required
+              placeholder="your@email.com" />
+          </div>
+          <div class="form-group">
+            <label>Password</label>
+            <input
+              type="password"
+              id="loginPassword"
+              required
+              placeholder="Enter your password" />
+          </div>
+          <button type="submit">Login</button>
+          <p style="text-align: center; margin-top: 15px">
+            Don't have an account?
+            <a
+              href="#"
+              onclick="switchModal('loginModal', 'signupModal')"
+              style="color: #667eea"
+              >Sign up</a
+            >
+          </p>
+        </form>
+      </div>
+    </div>
+
+    <!-- Signup Modal -->
+    <div id="signupModal" class="modal">
+      <div class="modal-content">
+        <span class="close" onclick="closeModal('signupModal')">&times;</span>
+        <h2>Create Your Account</h2>
+
+        <!-- Account Type Selection -->
+        <div style="display: flex; gap: 15px; margin-bottom: 20px">
+          <label
+            style="
+              flex: 1;
+              text-align: center;
+              padding: 15px;
+              border: 2px solid #e8ecef;
+              border-radius: 10px;
+              cursor: pointer;
+            ">
+            <input
+              type="radio"
+              name="accountType"
+              value="customer"
+              checked
+              onchange="toggleSignupType()" />
+            <div style="margin-top: 5px; font-weight: 600">Customer</div>
+          </label>
+          <label
+            style="
+              flex: 1;
+              text-align: center;
+              padding: 15px;
+              border: 2px solid #e8ecef;
+              border-radius: 10px;
+              cursor: pointer;
+            ">
+            <input
+              type="radio"
+              name="accountType"
+              value="installer"
+              onchange="toggleSignupType()" />
+            <div style="margin-top: 5px; font-weight: 600">Installer</div>
+          </label>
+        </div>
+
+        <form id="signupForm">
+          <!-- Common Fields -->
+          <div class="form-group">
+            <label>Email</label>
+            <input
+              type="email"
+              id="signupEmail"
+              required
+              placeholder="your@email.com" />
+          </div>
+          <div class="form-group">
+            <label>Password</label>
+            <input
+              type="password"
+              id="signupPassword"
+              required
+              placeholder="At least 6 characters" />
+          </div>
+          <div class="form-group">
+            <label>Full Name</label>
+            <input type="text" id="signupName" placeholder="John Doe" />
+          </div>
+          <div class="form-group">
+            <label>Phone Number</label>
+            <input type="tel" id="signupPhone" placeholder="08012345678" />
+          </div>
+
+          <!-- Installer-only Fields -->
+          <div id="installerFields" style="display: none">
+            <div class="form-group">
+              <label>Company/Business Name</label>
+              <input
+                type="text"
+                id="installerName"
+                placeholder="ABC Solar Company" />
+            </div>
+            <div class="grid-2">
+              <div class="form-group">
+                <label>State</label>
+                <select id="installerState">
+                  <option value="">Select State</option>
+                  <option value="Lagos">Lagos</option>
+                  <option value="Abuja">FCT Abuja</option>
+                  <option value="Kano">Kano</option>
+                  <option value="Rivers">Rivers</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label>City</label>
+                <input type="text" id="installerCity" placeholder="Ikeja" />
+              </div>
+            </div>
+            <div class="form-group">
+              <label>Address</label>
+              <input
+                type="text"
+                id="installerAddress"
+                placeholder="123 Solar Street" />
+            </div>
+            <div class="form-group">
+              <label>Services Offered</label>
+              <input
+                type="text"
+                id="installerServices"
+                placeholder="Residential, Commercial, Maintenance" />
+            </div>
+            <div class="form-group">
+              <label>Description</label>
+              <textarea
+                id="installerDescription"
+                rows="3"
+                placeholder="Tell us about your business..."></textarea>
+            </div>
+          </div>
+
+          <button type="submit">Create Account</button>
+          <p style="text-align: center; margin-top: 15px">
+            Already have an account?
+            <a
+              href="#"
+              onclick="switchModal('signupModal', 'loginModal')"
+              style="color: #667eea"
+              >Login</a
+            >
+          </p>
+        </form>
+      </div>
+    </div>
+
+    <script src="js/app.js"></script>
+  </body>
+</html>
