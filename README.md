@@ -199,7 +199,7 @@ Quick overview:
 
 Your Name
 
-- GitHub: [@Rahma_haasan](https://github.com/Rahma_haasan)
+- GitHub: [@Rahma_haasan](https://github.com/Rahma-tullah)
 - Email: onyiozahm90@gmail.com
 
 ## 🙏 Acknowledgments
