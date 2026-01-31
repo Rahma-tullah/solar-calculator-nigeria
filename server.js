@@ -44,6 +44,14 @@ app.use("/api/calculations", calculationsRoutes);
 app.use("/api/installers", installersRoutes);
 app.use("/api/chat", chatRoutes);
 
+// Serve static frontend files
+const path = require("path");
+app.use(express.static(path.join(__dirname, "frontend")));
+
+// Catch all other routes and send index.html
+app.get("*", (req, res) => {
+  res.sendFile(path.join(__dirname, "frontend", "index.html"));
+});
 // Start server
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
