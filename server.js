@@ -49,7 +49,8 @@ const path = require("path");
 app.use(express.static(path.join(__dirname, "frontend")));
 
 // Catch all other routes and send index.html
-app.get("*", (req, res) => {
+// Only catch non-API routes
+app.get(/^\/(?!api).*/, (req, res) => {
   res.sendFile(path.join(__dirname, "frontend", "index.html"));
 });
 // Start server
