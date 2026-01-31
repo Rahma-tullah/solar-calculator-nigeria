@@ -24,10 +24,10 @@ app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-// Basic test route
-app.get("/", (req, res) => {
-  res.json({ message: "Solar Calculator API is running!" });
-});
+// // Basic test route
+// app.get("/", (req, res) => {
+//   res.json({ message: "Solar Calculator API is running!" });
+// });
 
 // Import routes (we'll create these next)
 const calculationsRoutes = require("./routes/route_calculations");
